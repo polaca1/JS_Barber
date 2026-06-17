@@ -77,7 +77,7 @@ if (dashboardRoot instanceof HTMLElement && dataNode instanceof HTMLScriptElemen
 
     if (adminTotal instanceof HTMLElement) {
       const activeCount = bookings.filter((booking) => booking.status !== 'Cancelada').length;
-      adminTotal.textContent = `${activeCount} ${activeCount === 1 ? 'reserva registrada' : 'reservas registradas'}`;
+      adminTotal.textContent = `${activeCount} ${activeCount === 1 ? 'cita' : 'citas'}`;
     }
 
     dayButtons.forEach((button) => {

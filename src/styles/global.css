@@ -1138,10 +1138,10 @@ textarea.field {
 .admin-calendar-count {
   color: var(--gold);
   font-size: 0.68rem;
-  text-transform: uppercase;
   letter-spacing: 0.12em;
   line-height: 1.1;
   text-align: left;
+  text-transform: none;
 }
 
 .agenda-panel {
