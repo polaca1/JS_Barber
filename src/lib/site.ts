@@ -4,8 +4,8 @@ export const site = {
   address: 'Calle de los Porches, 6, 06195, Badajoz',
   phoneDisplay: '654 07 81 22',
   phoneDigits: '34654078122',
-  instagramHandle: '@sanchejuan',
-  instagramUrl: 'https://www.instagram.com/sanchejuan/',
+  instagramHandle: '@sachejuan',
+  instagramUrl: 'https://www.instagram.com/sachejuan/',
   whatsappUrl:
     import.meta.env.PUBLIC_WHATSAPP_URL ||
     'https://wa.me/34654078122?text=Hola%20quiero%20reservar%20una%20cita%20en%20J.%20Sanchez%20Barber%20Shop',

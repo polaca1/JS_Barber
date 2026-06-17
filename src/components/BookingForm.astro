@@ -263,34 +263,34 @@ if (!Astro.cookies.has(csrfCookieName)) {
       const manageSection = app.querySelector('[data-manage-section]');
       const showManageButton = app.querySelector('[data-show-manage]');
       if (
-        !(monthLabel instanceof HTMLElement) ||
-        !(prevMonthButton instanceof HTMLButtonElement) ||
-        !(nextMonthButton instanceof HTMLButtonElement) ||
-        !(calendar instanceof HTMLElement) ||
-        !(timeGrid instanceof HTMLElement) ||
-        !(nextStepButton instanceof HTMLButtonElement) ||
-        !(prevStepButton instanceof HTMLButtonElement) ||
-        !(summaryService instanceof HTMLElement) ||
-        !(summaryBarber instanceof HTMLElement) ||
-        !(summaryDate instanceof HTMLElement) ||
-        !(summaryTime instanceof HTMLElement) ||
-        !(summaryPrice instanceof HTMLElement) ||
-        !(hiddenBookingId instanceof HTMLInputElement) ||
-        !(hiddenService instanceof HTMLInputElement) ||
-        !(hiddenBarber instanceof HTMLInputElement) ||
-        !(hiddenDate instanceof HTMLInputElement) ||
-        !(hiddenTime instanceof HTMLInputElement) ||
-        !(bookingForm instanceof HTMLFormElement) ||
-        !(bookingStatus instanceof HTMLElement) ||
-        !(formTitle instanceof HTMLElement) ||
-        !(formCopy instanceof HTMLElement) ||
-        !(formKicker instanceof HTMLElement) ||
-        !(submitButton instanceof HTMLButtonElement) ||
-        !(lookupForm instanceof HTMLFormElement) ||
-        !(lookupStatus instanceof HTMLElement) ||
-        !(appointmentsList instanceof HTMLElement) ||
-        !(manageSection instanceof HTMLElement) ||
-        !(showManageButton instanceof HTMLButtonElement)
+        !monthLabel ||
+        !prevMonthButton ||
+        !nextMonthButton ||
+        !calendar ||
+        !timeGrid ||
+        !nextStepButton ||
+        !prevStepButton ||
+        !summaryService ||
+        !summaryBarber ||
+        !summaryDate ||
+        !summaryTime ||
+        !summaryPrice ||
+        !hiddenBookingId ||
+        !hiddenService ||
+        !hiddenBarber ||
+        !hiddenDate ||
+        !hiddenTime ||
+        !bookingForm ||
+        !bookingStatus ||
+        !formTitle ||
+        !formCopy ||
+        !formKicker ||
+        !submitButton ||
+        !lookupForm ||
+        !lookupStatus ||
+        !appointmentsList ||
+        !manageSection ||
+        !showManageButton
       ) {
         return;
       }
@@ -301,13 +301,7 @@ if (!Astro.cookies.has(csrfCookieName)) {
       const lookupNameInput = lookupForm.elements.namedItem('name');
       const lookupPhoneInput = lookupForm.elements.namedItem('phone');
 
-      if (
-        !(nameInput instanceof HTMLInputElement) ||
-        !(phoneInput instanceof HTMLInputElement) ||
-        !(notesInput instanceof HTMLTextAreaElement) ||
-        !(lookupNameInput instanceof HTMLInputElement) ||
-        !(lookupPhoneInput instanceof HTMLInputElement)
-      ) {
+      if (!nameInput || !phoneInput || !notesInput || !lookupNameInput || !lookupPhoneInput) {
         return;
       }
 
