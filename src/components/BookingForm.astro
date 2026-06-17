@@ -797,34 +797,37 @@ if (!Astro.cookies.has(csrfCookieName)) {
         });
       };
 
-      serviceCards.forEach((card) => {
-        if (!(card instanceof HTMLButtonElement)) return;
-        card.addEventListener('click', () => {
-          state.service = card.dataset.serviceName || '';
-          state.servicePrice = card.dataset.servicePrice || '';
-          state.serviceDuration = Number.parseInt(card.dataset.serviceDuration || '30', 10) || 30;
+      app.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) {
+          return;
+        }
+
+        const serviceCard = target.closest('[data-service-card]');
+        if (serviceCard instanceof HTMLElement) {
+          state.service = serviceCard.dataset.serviceName || '';
+          state.servicePrice = serviceCard.dataset.servicePrice || '';
+          state.serviceDuration = Number.parseInt(serviceCard.dataset.serviceDuration || '30', 10) || 30;
           highlightCards();
           syncSummary();
           renderTimes();
           renderChrome();
-        });
-      });
+          return;
+        }
 
-      barberCards.forEach((card) => {
-        if (!(card instanceof HTMLButtonElement)) return;
-        card.addEventListener('click', () => {
-          state.barber = card.dataset.barberValue || '';
-          state.barberLabel = card.dataset.barberName || '';
+        const barberCard = target.closest('[data-barber-card]');
+        if (barberCard instanceof HTMLElement) {
+          state.barber = barberCard.dataset.barberValue || '';
+          state.barberLabel = barberCard.dataset.barberName || '';
           highlightCards();
           syncSummary();
           renderChrome();
-        });
-      });
+          return;
+        }
 
-      periodButtons.forEach((button) => {
-        if (!(button instanceof HTMLButtonElement)) return;
-        button.addEventListener('click', () => {
-          state.period = button.dataset.period || 'manana';
+        const periodButton = target.closest('[data-period]');
+        if (periodButton instanceof HTMLElement) {
+          state.period = periodButton.dataset.period || 'manana';
           if (state.time && getSlotAvailability(state.time) === 0) {
             state.time = '';
           }
@@ -832,39 +835,46 @@ if (!Astro.cookies.has(csrfCookieName)) {
           syncSummary();
           renderTimes();
           renderChrome();
-        });
-      });
-
-      prevMonthButton.addEventListener('click', () => {
-        if (prevMonthButton.disabled) return;
-        monthState.setMonth(monthState.getMonth() - 1);
-        renderCalendar();
-      });
-
-      showManageButton.addEventListener('click', openManageSection);
-
-      nextMonthButton.addEventListener('click', () => {
-        if (nextMonthButton.disabled) return;
-        monthState.setMonth(monthState.getMonth() + 1);
-        renderCalendar();
-      });
-
-      nextStepButton.addEventListener('click', () => {
-        if (state.step < 4 && isValidStep()) {
-          state.step += 1;
-          renderChrome();
           return;
         }
 
-        if (state.step === 4 && isValidStep()) {
-          bookingForm.requestSubmit();
+        if (target.closest('[data-month-prev]')) {
+          if (prevMonthButton.disabled) return;
+          monthState.setMonth(monthState.getMonth() - 1);
+          renderCalendar();
+          return;
         }
-      });
 
-      prevStepButton.addEventListener('click', () => {
-        if (state.step > 1) {
-          state.step -= 1;
-          renderChrome();
+        if (target.closest('[data-month-next]')) {
+          if (nextMonthButton.disabled) return;
+          monthState.setMonth(monthState.getMonth() + 1);
+          renderCalendar();
+          return;
+        }
+
+        if (target.closest('[data-show-manage]')) {
+          openManageSection();
+          return;
+        }
+
+        if (target.closest('[data-nav-next]')) {
+          if (state.step < 4 && isValidStep()) {
+            state.step += 1;
+            renderChrome();
+            return;
+          }
+
+          if (state.step === 4 && isValidStep()) {
+            bookingForm.requestSubmit();
+          }
+          return;
+        }
+
+        if (target.closest('[data-nav-prev]')) {
+          if (state.step > 1) {
+            state.step -= 1;
+            renderChrome();
+          }
         }
       });
 
