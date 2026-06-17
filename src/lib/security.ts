@@ -122,6 +122,17 @@ export async function verifyTurnstileToken(token: string, remoteip?: string) {
   }
 
   const secret = process.env.TURNSTILE_SECRET_KEY || '1x0000000000000000000000000000000AA';
+  const siteKey = process.env.PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA';
+
+  // Allow the built-in Cloudflare testing pair to work in preview/production
+  // when real environment variables have not been configured yet.
+  if (
+    secret === '1x0000000000000000000000000000000AA' &&
+    siteKey === '1x00000000000000000000AA'
+  ) {
+    return true;
+  }
+
   const body = new URLSearchParams({
     secret,
     response: token,
