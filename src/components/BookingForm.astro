@@ -224,7 +224,7 @@ if (!Astro.cookies.has(csrfCookieName)) {
     // @ts-nocheck
     (() => {
       const app = document.querySelector('[data-booking-app]');
-      if (!(app instanceof HTMLElement)) {
+      if (!app || !('querySelector' in app)) {
         return;
       }
 
@@ -423,9 +423,9 @@ if (!Astro.cookies.has(csrfCookieName)) {
 
       const getServiceDuration = (serviceName) => {
         const card = serviceCards.find(
-          (serviceCard) => serviceCard instanceof HTMLElement && serviceCard.dataset.serviceName === serviceName,
+          (serviceCard) => isDomElement(serviceCard) && serviceCard.dataset.serviceName === serviceName,
         );
-        return Number.parseInt(card instanceof HTMLElement ? card.dataset.serviceDuration || '30' : '30', 10) || 30;
+        return Number.parseInt(isDomElement(card) ? card.dataset.serviceDuration || '30' : '30', 10) || 30;
       };
 
       const timeOverlapsBooking = (dateValue, slotStart, slotDuration, booking) => {
@@ -443,7 +443,7 @@ if (!Astro.cookies.has(csrfCookieName)) {
       const getAvailableBarbersForSlot = (dateValue, slotValue, durationMinutes) => {
         const slotStart = toMinutes(slotValue);
         return barberCards.filter((card) => {
-          if (!(card instanceof HTMLElement)) return false;
+          if (!isDomElement(card)) return false;
           const barberValue = card.dataset.barberValue || '';
           return !knownBookings.some(
             (booking) =>
@@ -456,7 +456,7 @@ if (!Astro.cookies.has(csrfCookieName)) {
 
       const getSlotAvailability = (slotValue) => {
         if (!state.date || !state.service) {
-          return barberCards.filter((card) => card instanceof HTMLElement).length;
+          return barberCards.filter((card) => isDomElement(card)).length;
         }
 
         const durationMinutes = state.serviceDuration || getServiceDuration(state.service);
@@ -465,7 +465,7 @@ if (!Astro.cookies.has(csrfCookieName)) {
 
       const getCurrentSlotBarbers = () => {
         if (!state.date || !state.time || !state.service) {
-          return barberCards.filter((card) => card instanceof HTMLElement);
+          return barberCards.filter((card) => isDomElement(card));
         }
 
         const durationMinutes = state.serviceDuration || getServiceDuration(state.service);
@@ -523,7 +523,7 @@ if (!Astro.cookies.has(csrfCookieName)) {
         if (state.step === 3) {
           return Boolean(
             state.barber &&
-              getCurrentSlotBarbers().some((card) => card instanceof HTMLElement && card.dataset.barberValue === state.barber),
+              getCurrentSlotBarbers().some((card) => isDomElement(card) && card.dataset.barberValue === state.barber),
           );
         }
         return true;
@@ -554,14 +554,14 @@ if (!Astro.cookies.has(csrfCookieName)) {
 
       const highlightCards = () => {
         serviceCards.forEach((card) => {
-          if (!(card instanceof HTMLElement)) return;
+          if (!isDomElement(card)) return;
           card.classList.toggle('is-selected', card.dataset.serviceName === state.service);
         });
 
         barberCards.forEach((card) => {
-          if (!(card instanceof HTMLElement)) return;
+          if (!isDomElement(card)) return;
           const availableNow = getCurrentSlotBarbers().some(
-            (availableCard) => availableCard instanceof HTMLElement && availableCard.dataset.barberValue === card.dataset.barberValue,
+            (availableCard) => isDomElement(availableCard) && availableCard.dataset.barberValue === card.dataset.barberValue,
           );
           const selected = card.dataset.barberValue === state.barber;
           card.classList.toggle('is-selected', selected);
@@ -569,7 +569,7 @@ if (!Astro.cookies.has(csrfCookieName)) {
           card.toggleAttribute('disabled', Boolean(state.date && state.time && !availableNow));
 
           const note = card.querySelector('[data-barber-note]');
-          if (note instanceof HTMLElement) {
+          if (isDomElement(note)) {
             note.textContent = state.date && state.time
               ? availableNow
                 ? 'Disponible para esa hora'
@@ -579,7 +579,7 @@ if (!Astro.cookies.has(csrfCookieName)) {
         });
 
         periodButtons.forEach((button) => {
-          if (!(button instanceof HTMLElement)) return;
+          if (!isDomElement(button)) return;
           button.classList.toggle('is-active', button.dataset.period === state.period);
         });
       };
@@ -613,7 +613,7 @@ if (!Astro.cookies.has(csrfCookieName)) {
         });
 
         const timeAvailabilityNote = app.querySelector('[data-time-availability-note]');
-        if (timeAvailabilityNote instanceof HTMLElement) {
+        if (isDomElement(timeAvailabilityNote)) {
           const availableCount = slots.filter((slot) => getSlotAvailability(slot) > 0).length;
           timeAvailabilityNote.textContent = state.date
             ? `${availableCount} horas libres para ${state.service || 'este servicio'}.`
@@ -689,7 +689,7 @@ if (!Astro.cookies.has(csrfCookieName)) {
         state.bookingId = booking.id || '';
         state.service = booking.service || '';
         state.servicePrice =
-          serviceCards.find((card) => card instanceof HTMLElement && card.dataset.serviceName === booking.service)?.dataset.servicePrice || '0,00 EUR';
+          serviceCards.find((card) => isDomElement(card) && card.dataset.serviceName === booking.service)?.dataset.servicePrice || '0,00 EUR';
         state.barber = booking.barber || '';
         state.barberLabel = booking.barberLabel || '';
         state.date = booking.date || getFirstValidDate();
@@ -799,12 +799,12 @@ if (!Astro.cookies.has(csrfCookieName)) {
 
       app.addEventListener('click', (event) => {
         const target = event.target;
-        if (!(target instanceof Element)) {
+        if (!isDomElement(target)) {
           return;
         }
 
         const serviceCard = target.closest('[data-service-card]');
-        if (serviceCard instanceof HTMLElement) {
+        if (isDomElement(serviceCard)) {
           state.service = serviceCard.dataset.serviceName || '';
           state.servicePrice = serviceCard.dataset.servicePrice || '';
           state.serviceDuration = Number.parseInt(serviceCard.dataset.serviceDuration || '30', 10) || 30;
@@ -816,7 +816,7 @@ if (!Astro.cookies.has(csrfCookieName)) {
         }
 
         const barberCard = target.closest('[data-barber-card]');
-        if (barberCard instanceof HTMLElement) {
+        if (isDomElement(barberCard)) {
           state.barber = barberCard.dataset.barberValue || '';
           state.barberLabel = barberCard.dataset.barberName || '';
           highlightCards();
@@ -826,7 +826,7 @@ if (!Astro.cookies.has(csrfCookieName)) {
         }
 
         const periodButton = target.closest('[data-period]');
-        if (periodButton instanceof HTMLElement) {
+        if (isDomElement(periodButton)) {
           state.period = periodButton.dataset.period || 'manana';
           if (state.time && getSlotAvailability(state.time) === 0) {
             state.time = '';
@@ -976,3 +976,4 @@ if (!Astro.cookies.has(csrfCookieName)) {
     })();
   </script>
 </section>
+      const isDomElement = (value) => Boolean(value && typeof value === 'object' && value.nodeType === 1);
