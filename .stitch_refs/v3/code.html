@@ -1,0 +1,228 @@
+<!DOCTYPE html><html class="dark" lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>J. SÁNCHEZ | El Arte del Corte Real</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#4e3700",
+                        "primary-fixed-dim": "#e9c176",
+                        "tertiary-container": "#a7a5a5",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface-tint": "#e9c176",
+                        "primary-fixed": "#ffdea5",
+                        "inverse-primary": "#775a19",
+                        "on-secondary-fixed-variant": "#474646",
+                        "surface": "#131313",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-surface": "#e5e2e1",
+                        "on-primary-fixed-variant": "#5d4201",
+                        "surface-bright": "#3a3939",
+                        "on-tertiary": "#303030",
+                        "error": "#ffb4ab",
+                        "primary-container": "#c5a059",
+                        "secondary": "#c8c6c5",
+                        "surface-variant": "#353534",
+                        "on-tertiary-container": "#3b3b3b",
+                        "on-primary": "#412d00",
+                        "on-background": "#e5e2e1",
+                        "secondary-container": "#4a4949",
+                        "primary": "#e9c176",
+                        "on-error": "#690005",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "tertiary": "#c8c6c5",
+                        "surface-container-high": "#2a2a2a",
+                        "error-container": "#93000a",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "outline-variant": "#4e4639",
+                        "surface-container": "#201f1f",
+                        "inverse-on-surface": "#313030",
+                        "surface-container-highest": "#353534",
+                        "surface-dim": "#131313",
+                        "on-surface-variant": "#d1c5b4",
+                        "on-primary-fixed": "#261900",
+                        "tertiary-fixed": "#e4e2e1",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "on-secondary": "#313030",
+                        "background": "#131313",
+                        "on-tertiary-fixed-variant": "#474746",
+                        "outline": "#9a8f80",
+                        "on-secondary-container": "#bab8b7",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "on-error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "64px",
+                        "lg": "24px",
+                        "md": "16px",
+                        "unit": "4px",
+                        "sm": "8px",
+                        "xl": "40px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-sm": ["Playfair Display"],
+                        "caption": ["Inter"],
+                        "display-lg": ["Playfair Display"],
+                        "headline-md": ["Playfair Display"],
+                        "display-lg-mobile": ["Playfair Display"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-sm": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "display-lg-mobile": ["36px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0A0A0A;
+            color: #e5e2e1;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 16px;
+        }
+        .service-card:hover .service-price {
+            color: #e9c176;
+            transform: scale(1.1);
+        }
+        .nav-blur {
+            backdrop-filter: blur(12px);
+            background: rgba(10, 10, 10, 0.85);
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 border-b border-outline-variant/30 nav-blur">
+<div class="flex justify-between items-center px-gutter py-md max-w-[1200px] mx-auto">
+<div class="hidden md:flex gap-md items-center">
+<a class="font-label-md text-label-md uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors duration-300" href="#services">Services</a>
+<a class="font-label-md text-label-md uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors duration-300" href="#gallery">Gallery</a>
+</div>
+<a class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary italic font-bold" href="#">JSanchez Barbershop</a>
+<div class="flex gap-md items-center">
+<a class="hidden md:inline-block font-label-md text-label-md uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors duration-300" href="#contact">Contact</a>
+<button class="bg-primary-container text-on-primary-container px-lg py-sm font-label-md text-label-md uppercase tracking-widest rounded-lg active:scale-95 duration-150 transition-all">
+                    Appointment
+                </button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative h-screen flex flex-col items-center justify-center pt-xl overflow-hidden">
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-background/40 to-background z-10"></div>
+<img alt="Heritage Barbershop interior" class="w-full h-full object-cover" data-alt="A cinematic, high-contrast wide shot of a luxury barber shop interior. The room features dark wood paneling, ornate leather barber chairs with chrome accents, and warm, atmospheric pendant lighting that casts soft glows across the scene. The overall aesthetic is masculine, premium, and sophisticated, reflecting a dark-mode apothecary vibe with deep charcoal and bronze tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpr5z4Eh7oGNU4kAZmYXMscStJWrjpxUPeZ5UR8i3YRfRJkcr5rwLN55rI8a4XHpCEePihZeOe5C6bhIekblDiS-_t34B_rXSa0EUuy3tXAk1aoCyRjNJIuf3stJXji8ybQ_9BNw0ldNucqT6WbWEAS2uMAzJvxCxWPwXVMqDj7b6APR5rSz680uQIy47KYuWBxp0EwkgdaoOXIkhizhPp8t6jzQDO1IYk1IEJhG-ZsHgckgfTosLTYcH4jsQaSYzCzR2xWstZUUA">
+</div>
+<div class="relative z-20 text-center max-w-[800px] px-gutter">
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-on-background mb-md">
+                El Arte del Corte Real
+            </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-xl leading-relaxed">
+                Precisión técnica y sofisticación editorial en el corazón de Villafranco, Badajoz. Elevamos el estándar del cuidado masculino.
+            </p>
+<div class="flex flex-col md:flex-row gap-md justify-center items-center">
+<button class="w-full md:w-auto bg-primary text-on-primary-fixed px-xl py-lg font-label-md text-label-md uppercase tracking-widest font-bold active:scale-95 transition-all">
+                    Reservar Cita
+                </button>
+<button class="w-full md:w-auto border border-outline px-xl py-lg font-label-md text-label-md uppercase tracking-widest text-on-surface hover:bg-surface-variant transition-all">
+                    Ver Galería
+                </button>
+</div>
+</div>
+<div class="absolute bottom-xl left-1/2 -translate-x-1/2 animate-bounce z-20 text-primary">
+<span class="material-symbols-outlined">expand_more</span>
+</div>
+</section>
+<!-- Story Section -->
+<section class="py-xl px-gutter max-w-[1200px] mx-auto bg-surface-container-lowest">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-xl items-center">
+<div class="relative">
+<div class="aspect-[4/5] border border-outline-variant p-sm">
+<img alt="Toni Sánchez at work" class="w-full h-full object-cover grayscale" data-alt="A professional black and white portrait of a master barber, Toni Sánchez, focused on his craft. The lighting is dramatic and moody, highlighting the sharp lines of his tools and the concentration on his face. The background is a blurred high-end barbershop setting, reinforcing the heritage and professional atmosphere of Sanche Juan luxury grooming." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAg5xhKSiq56zME7W-G4jzK9c5bz-f-SrJXuzX3IXEvPQLNNPVs_3W5PA2-lvapIvtrKkkiHMO14s-nEkXuDw412-FAZsy-iBMfBaeLC7uJDwo-rM5PLtNUSmpSAkuhC8lXereWiHFvuuLNVgAHo6W27yZ2CXmbGLahukznUTKjTNOzvdu3yb4s4VQGZjuJjUQ_hmaXntM4iexVQ0EgztEaehENYsyL6ujsqgvSWN2LzKUVYWMVsZ4MkEOI6C_9rntQGCwynuc6syQ">
+</div>
+<div class="absolute -bottom-md -right-md bg-primary-container p-lg text-on-primary-container max-w-[200px] hidden md:block">
+<p class="font-headline-sm text-headline-sm italic">Est. 2020</p>
+<p class="font-caption text-caption uppercase mt-xs">Legado de Calidad</p>
+</div>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary mb-lg uppercase">Artesanía en Badajoz</h2>
+<div class="space-y-md text-on-surface-variant">
+<p class="font-body-lg text-body-lg">
+                        Liderado por <strong class="text-on-surface">Toni Sánchez</strong> y <strong class="text-on-surface">Juan Antonio Sánchez</strong>, nuestra barbería nace de una pasión compartida por la precisión y el estilo impecable.
+                    </p>
+<p class="">
+                        En J. Sánchez Barbershop, no solo cortamos el cabello; esculpimos identidades. Cada cliente recibe un asesoramiento personalizado basado en la fisonomía y el estilo de vida, asegurando un resultado que perdura más allá del sillón de corte.
+                    </p>
+<div class="pt-md border-t border-outline-variant flex gap-xl">
+<div>
+<span class="block font-display-lg text-display-lg-mobile text-primary">15+</span>
+<span class="font-caption text-caption uppercase">Años de Experiencia</span>
+</div>
+<div>
+<span class="block font-display-lg text-display-lg-mobile text-primary">5k+</span>
+<span class="font-caption text-caption uppercase">Clientes Satisfechos</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Services Grid -->
+<section class="py-xl px-gutter max-w-[1200px] mx-auto" id="gallery"><div class="mb-xl"><h2 class="font-headline-md text-headline-md text-on-background">Galería de Estilos</h2><p class="font-caption text-caption uppercase text-primary tracking-widest mt-sm">Inspiración y Resultados Reales</p></div><div class="grid grid-cols-2 md:grid-cols-4 gap-md"><div class="aspect-square overflow-hidden border border-outline-variant"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAy_wBz4Z-SDRCxQvs3roWOSnP_VLSxB1ZEhyP1Y46SXAW2kWRJ1SigptMUPemIxS44tB-mmrHCWG1hACH1S1PWqXIIqVqtb9j_P5JyUlEpPjYbiXVqPqCPxfxD_xHGDMO0ZYvMR4Vd4crLuI4PpUcOlgBKLEJfFnNfL0XppoaLVjMpAQ02OdmDFqmgNoi786_JvwD5qCGJ62rPzZ_53yqvRSAkzBcgoAbwFI51TBHWi9lPk5IBDRSMKL0sFDNXGtxZxZjG-yJ06G8" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300" alt="Corte de pelo"></div><div class="aspect-square overflow-hidden border border-outline-variant"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWBesHvBncPziQreDxgY_DeqwXdDL3ytXSE7DD-w3jLR7m4Zr49ZsAqF8QvEcDe69iC5RWo_mL7Z0ozlLu1RcIF3lbt0fPBPvpqMRw_KtYI-0nI2dKDjBJ_Z87JrVBSy_DExWFtzNMqwrCdRWKPQ3ZD8Rp2Kj2WV5dqpbfdmZ7qJLHf6L95HgzIveRY5bk26o-8uQiCVKuCfv2nSolvgnTX0DWBBiK-jfx4AqHwTjMcnguVSZntm5OlA8lT22nuDu5od4fLccdP94" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300" alt="Corte de pelo"></div><div class="aspect-square overflow-hidden border border-outline-variant"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3u_ry8NanH-zCmfRTTGjSF7ChqWYZNiOWBs_mpLFcNEeluXLx-pc4LU2emTlztRZ7NBNkAbP2i5bMm4f6bz8817lqu3YdOore6-2d7n9jSiRlV3LPmdNBN0-tflExnIiu22vJydJ2DI0unHqLNLVBab5Kmi_C7EXkQh6HtzG6HczKhsqFCBCbIayETRjj7kVZZ5yr3LymJyYauS5RPQo25unsi3LVfgoA6BnFPA0kCd5cIWwUHtX6S_1cMzNIpVVBs_VlI5Ki7kc" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300" alt="Corte de pelo"></div><div class="aspect-square overflow-hidden border border-outline-variant"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAt_ByknZ9ynXRFS4lbxXgCJdLt_wWp07SeIn5Z38zBGIhuhtOPo6L6f2ZgT-xSoUYxfQ5R8mwr1j99wIRynSkFGYV8dUve4SAF3nbI154TwMCCmhtr0322lCpovj9xc5Ic5sffywQ4tjJ2k9B8qBZ5XT7sZeZOpUveuw6Ipc1xF07Vy6WMt-5M7rPGcadFo53bH64xEYvqTaKBHeMzPk2Y6kIIhqIZrCbht0esbt-C5RtlntIlFeVH-jphkjE1uwoVYp95G2-pjug" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300" alt="Corte de pelo"></div><div class="aspect-square overflow-hidden border border-outline-variant"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9eRsHZuJpf_I7W_h_q1DAsfIXVscyeIbdGWdOOyfMe9qs8V7r3sg0insaE9_WtrAfWMFtqle5IkyVoYVnBjOUTFrPj8mXin1Z1vVebW3L9qS8dydoYORC_6dRe7PBijZ0OwQriZvEtqEYuvwkL01jpo4CxtPLuZRQzEjyJM-03n5KmuD3uuY5cYyAtyRxmk1W3EBZC4QvtbZ7VdGvusT68qoMtpr5MuCoOtDwwk3ZKyd55xK9-X0E2Bquo4jFwWxAwXZpSQBuMPg" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300" alt="Corte de pelo"></div><div class="aspect-square overflow-hidden border border-outline-variant"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDtdFpwYN2QlJHvqJufNovglq9nhe7QBy53rYLvQEb6PNl6G56ZVKDrP8XMxcZX-NadBlovvnOMXRZYjL2QR06UJRLNYqh-hlYRd6Kuw6zKpbqNjGS3iSgAQiCBuxW4g2BH_weOkMy5YYDSPGQDq-Qk9bQAbNeU6HugYU9P43GyM7RK8qz-vCmz_N4Z9HaOORoIn5Glmy9SjcccT8Y1XYyykgcpjBFwigljnp0kBd3wbCNl_n8u9RO3JjsuKgSTZb3wAbiy36FLiQ" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300" alt="Corte de pelo"></div><div class="aspect-square overflow-hidden border border-outline-variant"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuALeeVbK-6oOyHa6oaIeQv-s7FFGUzfwczx4-PZAIVOiCCCpTTVJE2n7DBhPgiupT-0i8BOEnPXPNJQH8l4-qghcrQJJYWT6qc52R5T-4SiTC2-SXyUIHiVQLo1QeYA7oe-bA-mQC_fcplAN9g6SErqEsUIkKifJG2Bakf2jC0I-Tjm2dMchMXgURb-NSLc2YvzUg93_H2J4skhsYeAi9MNG9bWgI3QaJuRXtivBnuPb0iD70vFc78HnLPFqNvapvjfYSegfZDaKCI" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300" alt="Corte de pelo"></div><div class="aspect-square overflow-hidden border border-outline-variant"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8rjDqINmkdc5ImSmMNzt3YxN51RxRVigNqDW_ebrHxKkSF7bnGnRJOfIPNkAGn2_qn_ff2YZ4V63c-MukYqURZl6fkstX20DWVfeV-z29O_cOgT3qfD_AQkJFoct2H0Tg5EDx0WaIY34mTKoWIUOITDCpPDGVd5Wgyi1-RvxaKE24gaAMjdChrBbQFvkK9L59jpeX0kDVVH6j9zhx4DQ3JfIbp0FXxV4Ba9stByR2Eqn_9EnnttSCHsjiEglmhx6nfNp2NQ0rPss" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300" alt="Corte de pelo"></div></div></section><section class="py-xl px-gutter max-w-[1200px] mx-auto" id="services">
+<div class="flex flex-col md:flex-row justify-between items-end mb-xl gap-md">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-background">Menú de Servicios</h2>
+<p class="font-caption text-caption uppercase text-primary tracking-widest mt-sm">Experiencia Premium • Precios Reales</p>
+</div>
+<a class="text-primary-fixed-dim hover:underline font-label-md" href="#">Ver todos en Booksy →</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<!-- Service Item -->
+<div class="service-card group border border-outline-variant p-lg bg-surface transition-all duration-300 hover:border-primary/50">
+<div class="flex justify-between items-start mb-md">
+<span class="material-symbols-outlined text-primary text-3xl">content_cut</span>
+<span class="service-price font-headline-sm text-headline-sm text-on-surface transition-transform duration-300">11€</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-xs uppercase">Corte de Cabello</h3>
+<p class="text-on-surface-variant font-caption">Corte clásico o moderno con asesoramiento previo y lavado premium.</p>
+<div class="mt-lg flex gap-xs">
+</div></div></div></section>
+
+<footer class="py-xl border-t border-outline-variant/30 bg-surface-container-lowest"><div class="max-w-[1200px] mx-auto px-gutter flex flex-col md:flex-row justify-between items-center gap-lg"><div class="text-center md:text-left"><p class="font-display-lg text-headline-sm text-primary italic font-bold mb-xs">JSanchez Barbershop</p><p class="text-on-surface-variant font-caption uppercase tracking-widest">Villafranco, Badajoz</p></div><div class="flex flex-col items-center md:items-end gap-sm"><a href="https://instagram.com/sanchejuan" class="flex items-center gap-xs text-on-surface hover:text-primary transition-colors"><span class="material-symbols-outlined">photo_camera</span><span class="font-label-md">@sanchejuan</span></a><p class="text-on-surface-variant font-caption">© 2024 JSanchez Barbershop. Todos los derechos reservados.</p></div></div></footer></body></html>

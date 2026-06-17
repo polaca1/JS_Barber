@@ -1,0 +1,82 @@
+---
+import Layout from '@components/Layout.astro';
+import AdminDashboard from '@components/AdminDashboard.astro';
+import { site } from '@lib/site';
+import { getDashboardData } from '@lib/db';
+import { getAdminCookieName, getCsrfCookieName, verifyAdminSession } from '@lib/auth';
+
+const csrfCookieName = getCsrfCookieName();
+const csrfToken = Astro.cookies.get(csrfCookieName)?.value ?? crypto.randomUUID();
+
+if (!Astro.cookies.has(csrfCookieName)) {
+  Astro.cookies.set(csrfCookieName, csrfToken, {
+    path: '/',
+    sameSite: 'strict',
+    secure: import.meta.env.PROD,
+    httpOnly: true,
+    maxAge: 60 * 60 * 24,
+  });
+}
+
+const isAuthed = verifyAdminSession(Astro.cookies.get(getAdminCookieName())?.value);
+const dashboard = await getDashboardData();
+const loginError = Astro.url.searchParams.get('error') === '1';
+---
+
+<Layout
+  title={`${site.name} | Admin`}
+  description="Panel privado para gestionar reservas reales del negocio."
+>
+  {
+    isAuthed ? (
+      <AdminDashboard dashboard={dashboard} csrfToken={csrfToken} />
+    ) : (
+      <main class="login-wrap">
+        <section class="login-card surface">
+          <p class="eyebrow">Acceso privado</p>
+          <h1 class="section-title" style="margin-top: 14px;">Panel de reservas</h1>
+          <p class="copy" style="margin-top: 14px;">
+            Entra con la contrasena del negocio para ver el calendario mensual, revisar los
+            servicios reservados y cancelar citas si hace falta.
+          </p>
+
+          {loginError && (
+            <p class="muted-note" style="margin-top: 18px; color: #ffb2b2;">
+              La contrasena no es correcta o la sesion ha expirado.
+            </p>
+          )}
+
+          <form id="admin-login-form" style="margin-top: 24px; display: grid; gap: 16px;">
+            <input type="hidden" name="csrfToken" value={csrfToken} />
+            <label class="field-label">
+              Contrasena
+              <input class="field" name="password" type="password" autocomplete="current-password" required />
+            </label>
+            <button class="btn btn-primary" type="submit" style="width: 100%;">Entrar al panel</button>
+          </form>
+
+          <div class="button-row" style="margin-top: 16px;">
+            <a class="btn btn-secondary" href="/">Volver al inicio</a>
+            <a class="btn btn-secondary" href="/reservas">Ir a reservas</a>
+          </div>
+        </section>
+
+        <script>
+          const loginForm = document.getElementById('admin-login-form');
+          if (loginForm instanceof HTMLFormElement) {
+            loginForm.addEventListener('submit', async (event) => {
+              event.preventDefault();
+              const payload = Object.fromEntries(new FormData(loginForm).entries());
+              const response = await fetch('/api/admin/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+              });
+              window.location.href = response.ok ? '/admin' : '/admin?error=1';
+            });
+          }
+        </script>
+      </main>
+    )
+  }
+</Layout>

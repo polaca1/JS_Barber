@@ -1,0 +1,29 @@
+---
+import Layout from '@components/Layout.astro';
+import { site } from '@lib/site';
+
+const status = Astro.url.searchParams.get('status');
+const isInvalid = status === 'invalid';
+---
+
+<Layout title={`${site.name} | Reserva enviada`} description="Estado final de la reserva online.">
+  <main class="thanks-shell shell">
+    <section class="surface booking-panel" style="max-width: 720px; margin: 0 auto;">
+      <p class="eyebrow">Reserva</p>
+      <h1 class="section-title" style="margin-top: 14px;">
+        {isInvalid ? 'No se pudo completar la reserva' : 'Reserva enviada correctamente'}
+      </h1>
+      <p class="copy" style="margin-top: 16px;">
+        {
+          isInvalid
+            ? 'No pudimos guardar la cita. Revisa los datos y vuelve a intentarlo.'
+            : 'Tu cita ya ha quedado registrada con nosotros.'
+        }
+      </p>
+      <div class="button-row" style="margin-top: 28px;">
+        <a class="btn btn-primary" href="/reservas">Volver a reservas</a>
+        <a class="btn btn-secondary" href="/">Ir al inicio</a>
+      </div>
+    </section>
+  </main>
+</Layout>

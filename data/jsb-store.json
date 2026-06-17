@@ -1,0 +1,33 @@
+{
+  "bookings": [
+    {
+      "name": "pablo",
+      "phone": "+34611758852",
+      "service": "Corte",
+      "barber": "toni-sanchez",
+      "date": "2026-06-25",
+      "time": "09:00",
+      "notes": "",
+      "barberLabel": "Toni Sanchez",
+      "id": "8add7682-e71e-4e2a-bf64-9c81ae9a9e7c",
+      "status": "Pendiente",
+      "createdAt": "2026-06-16T22:42:21.009Z"
+    }
+  ],
+  "workers": [
+    {
+      "id": "96d10733-46ed-4849-b325-3673ea80a633",
+      "value": "toni-sanchez",
+      "name": "Toni Sanchez",
+      "role": "Barbero",
+      "active": true
+    },
+    {
+      "id": "c49479af-53cd-4ac3-8ab7-76c093a1655c",
+      "value": "juan-antonio-sanchez",
+      "name": "Juan Antonio Sanchez",
+      "role": "Barbero",
+      "active": true
+    }
+  ]
+}

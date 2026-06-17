@@ -1,0 +1,74 @@
+---
+type NavKey = 'inicio' | 'reservas';
+
+const { active = 'inicio' } = Astro.props as { active?: NavKey };
+
+const links = [
+  { href: '/', label: 'Inicio', key: 'inicio' },
+  { href: '/#servicios', label: 'Servicios' },
+  { href: '/#galeria', label: 'Galeria' },
+  { href: '/reservas', label: 'Reservas', key: 'reservas' },
+  { href: '/admin', label: 'Admin' },
+  { href: '/#visita', label: 'Contacto' },
+];
+---
+
+<nav class="topnav" data-menu-open="false">
+  <div class="shell topnav-inner">
+    <a class="brand-wordmark" href="/">JSanchez Barbershop</a>
+
+    <div class="nav-links nav-links--desktop">
+      {links.map((link) => (
+        <a class:list={['nav-link', link.key === active && 'is-active']} href={link.href}>
+          {link.label}
+        </a>
+      ))}
+    </div>
+
+    <a class="btn btn-primary nav-cta nav-cta--desktop" href="/reservas">Reservar cita</a>
+
+    <button class="hamburger-btn" type="button" aria-label="Abrir menu" aria-expanded="false" data-menu-toggle>
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" data-mobile-menu>
+    <div class="shell mobile-menu-inner">
+      {links.map((link) => (
+        <a class:list={['mobile-menu-link', link.key === active && 'is-active']} href={link.href}>
+          {link.label}
+        </a>
+      ))}
+      <a class="btn btn-primary" href="/reservas">Reservar cita</a>
+    </div>
+  </div>
+
+  <script is:inline>
+    // @ts-nocheck
+    (() => {
+      const nav = document.currentScript?.closest('.topnav');
+      const toggle = nav?.querySelector('[data-menu-toggle]');
+      const menu = nav?.querySelector('[data-mobile-menu]');
+      if (!(nav instanceof HTMLElement) || !(toggle instanceof HTMLButtonElement) || !(menu instanceof HTMLElement)) {
+        return;
+      }
+
+      const closeMenu = () => {
+        nav.dataset.menuOpen = 'false';
+        toggle.setAttribute('aria-expanded', 'false');
+      };
+
+      toggle.addEventListener('click', () => {
+        const nextState = nav.dataset.menuOpen === 'true' ? 'false' : 'true';
+        nav.dataset.menuOpen = nextState;
+        toggle.setAttribute('aria-expanded', nextState);
+      });
+
+      menu.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeMenu);
+      });
+    })();
+  </script>
+</nav>

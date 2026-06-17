@@ -1,0 +1,148 @@
+---
+import Layout from '@components/Layout.astro';
+import FloatingWhatsApp from '@components/FloatingWhatsApp.astro';
+import PublicNav from '@components/PublicNav.astro';
+import { brandBanner, galleryImages, heroImages, services, site } from '@lib/site';
+---
+
+<Layout
+  title={`${site.name} | Barberia en Badajoz`}
+  description="Inicio de J. Sanchez Barber Shop con nuestros servicios, galeria, contacto y acceso a reservas."
+>
+  <PublicNav active="inicio" />
+
+  <main>
+    <section class="landing-hero">
+      <div class="landing-hero-media">
+        <img src={heroImages[0].src} alt={heroImages[0].alt} />
+      </div>
+      <img class="landing-logo-blur" src={brandBanner} alt="" aria-hidden="true" />
+      <div class="shell landing-hero-content">
+        <p class="eyebrow">Barberia en Badajoz</p>
+        <h1 class="display">El arte del corte real</h1>
+        <p class="copy">
+          Cuidamos cada corte para que salgas con un acabado limpio, una imagen que te favorezca y una
+          visita sencilla desde la web.
+        </p>
+        <div class="button-row" style="justify-content: center; margin-top: 30px;">
+          <a class="btn btn-primary" href="/reservas">Reservar cita</a>
+          <a class="btn btn-secondary" href="#galeria">Ver galeria</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-section">
+      <div class="shell split-section">
+        <div class="story-photo-frame">
+          <img src={heroImages[1].src} alt={heroImages[1].alt} />
+          <div class="story-badge">
+            <strong>Calle de los Porches</strong>
+            <span>Barberia de barrio con mirada actual</span>
+          </div>
+        </div>
+        <div>
+          <p class="eyebrow">Nuestra historia</p>
+          <h2 class="section-title">Nuestra barberia trabaja con una idea clara.</h2>
+          <p class="copy" style="margin-top: 18px;">
+            Empezamos con una idea sencilla: trabajar con limpieza, constancia y buen criterio,
+            sin perder la cercania de una barberia de confianza.
+          </p>
+          <p class="copy" style="margin-top: 16px;">
+            Cada reserva busca eso mismo: que elijas quien te atiende, encuentres tu hueco y vengas
+            sabiendo que aqui hay un trabajo cuidado de principio a fin.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="services-section" id="servicios">
+      <div class="shell">
+        <p class="eyebrow">Servicios y precios</p>
+        <h2 class="section-title">Precios de nuestros servicios.</h2>
+        <div class="service-grid">
+          {services.map((service) => (
+            <article class="service-card">
+              <div class="service-card-top">
+                <h3>{service.name}</h3>
+                <span class="price">{service.price}</span>
+              </div>
+              <p style="margin-top: 14px;">Duracion habitual: {service.duration}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery-section" id="galeria">
+      <div class="shell">
+        <p class="eyebrow">Galeria</p>
+        <h2 class="section-title">Asi quedan nuestros trabajos en el dia a dia.</h2>
+        <div class="gallery-grid">
+          {[...galleryImages, ...heroImages].slice(0, 8).map((image) => (
+            <img src={image.src} alt={image.alt} loading="lazy" />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="info-section" id="visita">
+      <div class="shell info-grid">
+        <article class="info-panel surface">
+          <p class="eyebrow">Opiniones y redes</p>
+          <h2 class="section-title">Si quieres ver mas de nuestro trabajo, aqui tienes nuestros canales.</h2>
+          <p class="copy" style="margin-top: 18px;">
+            Aqui tienes los enlaces del negocio para ver mas trabajos, ubicarnos o reservar directamente
+            cuando quieras.
+          </p>
+          <div class="button-row" style="margin-top: 24px;">
+            <a class="btn btn-primary" href={site.instagramUrl} target="_blank" rel="noopener noreferrer">
+              Instagram
+            </a>
+            <a class="btn btn-secondary" href={site.googleMapsUrl} target="_blank" rel="noopener noreferrer">
+              Ver en Google Maps
+            </a>
+          </div>
+          <a class="review-link" href="/reservas">Reservar desde la web</a>
+        </article>
+
+        <article class="info-panel surface">
+          <p class="eyebrow">Ubicacion</p>
+          <h2 class="section-title">Ven a nuestra barberia.</h2>
+          <p class="copy" style="margin-top: 18px;">{site.address}</p>
+          <p class="copy" style="margin-top: 10px;">Telefono: {site.phoneDisplay}</p>
+          <iframe
+            class="map-frame"
+            src={site.googleMapsEmbedUrl}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Mapa de J. Sanchez Barber Shop"
+            style="margin-top: 22px;"
+          ></iframe>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-grid">
+      <div>
+        <div class="brand-wordmark" style="font-size: 1.8rem;">JSanchez Barbershop</div>
+        <p class="copy" style="margin-top: 10px;">Calle de los Porches, 6, 06195, Badajoz</p>
+      </div>
+      <div>
+        <p class="eyebrow">Contacto</p>
+        <p class="copy" style="margin-top: 10px;">{site.phoneDisplay}</p>
+        <p class="copy" style="margin-top: 8px;">{site.instagramHandle}</p>
+      </div>
+      <div>
+        <p class="eyebrow">Accesos</p>
+        <div class="button-row" style="margin-top: 12px;">
+          <a class="btn btn-secondary" href="/reservas">Reservas</a>
+          <a class="btn btn-secondary" href="/admin">Admin</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <FloatingWhatsApp />
+</Layout>

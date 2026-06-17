@@ -1,0 +1,17 @@
+---
+import Layout from '@components/Layout.astro';
+import BookingForm from '@components/BookingForm.astro';
+import FloatingWhatsApp from '@components/FloatingWhatsApp.astro';
+import PublicNav from '@components/PublicNav.astro';
+import { site } from '@lib/site';
+---
+
+<Layout
+  title={`${site.name} | Reservas`}
+  description="Reserva online con seleccion de servicio, profesional, fecha y hora."
+>
+  <PublicNav active="reservas" />
+
+  <BookingForm />
+  <FloatingWhatsApp />
+</Layout>
