@@ -1,7 +1,7 @@
 import { addWorker, getAllWorkers } from '@lib/db';
 import { getAdminCookieName, getCsrfCookieName, verifyAdminSession } from '@lib/auth';
 import { readCookie } from '@lib/cookies';
-import { isSameOrigin, sanitizeText, workerCreateSchema } from '@lib/security';
+import { sanitizeText, workerCreateSchema } from '@lib/security';
 
 export const prerender = false;
 
@@ -15,10 +15,6 @@ export const GET = async ({ request }: { request: Request }) => {
 };
 
 export const POST = async ({ request }: { request: Request }) => {
-  if (!isSameOrigin(request)) {
-    return new Response('Forbidden', { status: 403 });
-  }
-
   const session = readCookie(request.headers.get('cookie'), getAdminCookieName()) ?? undefined;
   if (!verifyAdminSession(session)) {
     return new Response('Unauthorized', { status: 401 });

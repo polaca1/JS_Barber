@@ -1,14 +1,10 @@
 import { createBooking } from '@lib/db';
 import { readCookie } from '@lib/cookies';
-import { isSameOrigin, sanitizeText, validateBookingPayload, verifyTurnstileToken } from '@lib/security';
+import { sanitizeText, validateBookingPayload, verifyTurnstileToken } from '@lib/security';
 
 export async function handleBooking(request: Request) {
   if (request.method !== 'POST') {
     return new Response('Method Not Allowed', { status: 405, headers: { Allow: 'POST' } });
-  }
-
-  if (!isSameOrigin(request)) {
-    return new Response('Forbidden', { status: 403 });
   }
 
   const contentType = request.headers.get('content-type') || '';

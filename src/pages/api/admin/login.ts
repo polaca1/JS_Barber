@@ -1,14 +1,10 @@
 import { createAdminSession, getAdminCookieName, getCsrfCookieName, serializeCookie } from '@lib/auth';
-import { adminLoginSchema, isSameOrigin, sanitizeText } from '@lib/security';
+import { adminLoginSchema, sanitizeText } from '@lib/security';
 import { readCookie } from '@lib/cookies';
 
 export const prerender = false;
 
 export const POST = async ({ request }: { request: Request }) => {
-  if (!isSameOrigin(request)) {
-    return new Response('Forbidden', { status: 403 });
-  }
-
   const contentType = request.headers.get('content-type') || '';
   const isJson = contentType.includes('application/json');
   const isUrlEncoded = contentType.includes('application/x-www-form-urlencoded');

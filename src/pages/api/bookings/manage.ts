@@ -4,7 +4,6 @@ import {
   customerBookingCancelSchema,
   customerBookingUpdateSchema,
   customerLookupSchema,
-  isSameOrigin,
   sanitizeText,
   verifyTurnstileToken,
 } from '@lib/security';
@@ -16,10 +15,6 @@ function getErrorPayload(field: string, message: string) {
 }
 
 export const POST = async ({ request }: { request: Request }) => {
-  if (!isSameOrigin(request)) {
-    return new Response('Forbidden', { status: 403 });
-  }
-
   const csrfCookie = readCookie(request.headers.get('cookie'), 'jsb-csrf');
   const body = await request.json().catch(() => null);
   const action = typeof body?.action === 'string' ? body.action : '';

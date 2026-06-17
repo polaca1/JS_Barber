@@ -1,15 +1,11 @@
 import { cancelBooking } from '@lib/db';
 import { getAdminCookieName, getCsrfCookieName, verifyAdminSession } from '@lib/auth';
-import { bookingCancelSchema, isSameOrigin } from '@lib/security';
+import { bookingCancelSchema } from '@lib/security';
 import { readCookie } from '@lib/cookies';
 
 export const prerender = false;
 
 export const POST = async ({ request, params }: { request: Request; params: { id: string } }) => {
-  if (!isSameOrigin(request)) {
-    return new Response('Forbidden', { status: 403 });
-  }
-
   const session = readCookie(request.headers.get('cookie'), getAdminCookieName()) ?? undefined;
   if (!verifyAdminSession(session)) {
     return new Response('Unauthorized', { status: 401 });

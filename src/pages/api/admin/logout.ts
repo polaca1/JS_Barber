@@ -1,14 +1,9 @@
 import { getAdminCookieName, getCsrfCookieName, serializeCookie, verifyAdminSession } from '@lib/auth';
-import { isSameOrigin } from '@lib/security';
 import { readCookie } from '@lib/cookies';
 
 export const prerender = false;
 
 export const POST = async ({ request }: { request: Request }) => {
-  if (!isSameOrigin(request)) {
-    return new Response('Forbidden', { status: 403 });
-  }
-
   const csrfCookie = readCookie(request.headers.get('cookie'), getCsrfCookieName());
   const contentType = request.headers.get('content-type') || '';
   const isJson = contentType.includes('application/json');
