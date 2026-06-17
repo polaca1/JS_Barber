@@ -4,21 +4,14 @@ import { getCsrfCookieName } from '@lib/auth';
 import { services } from '@lib/site';
 
 const csrfCookieName = getCsrfCookieName();
-const csrfToken = Astro.cookies.get(csrfCookieName)?.value ?? crypto.randomUUID();
+const csrfToken =
+  (Astro.props as { csrfToken?: string }).csrfToken ??
+  Astro.cookies.get(csrfCookieName)?.value ??
+  crypto.randomUUID();
 const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA';
 const todayIso = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Madrid' }).format(new Date());
 const workers = await getWorkers();
 const bookings = await getBookings();
-
-if (!Astro.cookies.has(csrfCookieName)) {
-  Astro.cookies.set(csrfCookieName, csrfToken, {
-    path: '/',
-    sameSite: 'strict',
-    secure: import.meta.env.PROD,
-    httpOnly: true,
-    maxAge: 60 * 60 * 24,
-  });
-}
 ---
 
 <section class="booking-shell shell" data-booking-app data-today-iso={todayIso} data-bookings={JSON.stringify(bookings)}>

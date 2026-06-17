@@ -3,7 +3,21 @@ import Layout from '@components/Layout.astro';
 import BookingForm from '@components/BookingForm.astro';
 import FloatingWhatsApp from '@components/FloatingWhatsApp.astro';
 import PublicNav from '@components/PublicNav.astro';
+import { getCsrfCookieName } from '@lib/auth';
 import { site } from '@lib/site';
+
+const csrfCookieName = getCsrfCookieName();
+const csrfToken = Astro.cookies.get(csrfCookieName)?.value ?? crypto.randomUUID();
+
+if (!Astro.cookies.has(csrfCookieName)) {
+  Astro.cookies.set(csrfCookieName, csrfToken, {
+    path: '/',
+    sameSite: 'strict',
+    secure: import.meta.env.PROD,
+    httpOnly: true,
+    maxAge: 60 * 60 * 24,
+  });
+}
 ---
 
 <Layout
@@ -12,6 +26,6 @@ import { site } from '@lib/site';
 >
   <PublicNav active="reservas" />
 
-  <BookingForm />
+  <BookingForm csrfToken={csrfToken} />
   <FloatingWhatsApp />
 </Layout>
