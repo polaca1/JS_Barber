@@ -100,7 +100,7 @@ async function loadStore() {
         role: worker.role === 'Barbero senior' ? 'Barbero' : worker.role,
         active: worker.active !== false,
       })),
-      bookings: bookings.filter((booking): booking is BookingRecord => Boolean(booking && booking.id)),
+      bookings: dedupeBookings(bookings.filter((booking): booking is BookingRecord => Boolean(booking && booking.id))),
     };
   } catch {
     try {
@@ -118,7 +118,9 @@ async function loadStore() {
           role: worker.role === 'Barbero senior' ? 'Barbero' : worker.role,
           active: worker.active !== false,
         })),
-        bookings: bookings.filter((booking): booking is BookingRecord => Boolean(booking && booking.id)),
+        bookings: dedupeBookings(
+          bookings.filter((booking): booking is BookingRecord => Boolean(booking && booking.id)),
+        ),
       };
     } catch {
       state.__jsbStore = seedStore();
@@ -146,6 +148,41 @@ function sortBookings(bookings: BookingRecord[]) {
     const right = `${b.date}T${b.time}`;
     return left.localeCompare(right);
   });
+}
+
+function normalizeBookingValue(value: string) {
+  return String(value ?? '').trim().toLowerCase();
+}
+
+function bookingSignature(
+  record: Pick<BookingRecord, 'name' | 'phone' | 'service' | 'barber' | 'date' | 'time' | 'notes'>,
+) {
+  return [
+    normalizeBookingValue(record.name),
+    normalizeBookingValue(record.phone),
+    normalizeBookingValue(record.service),
+    normalizeBookingValue(record.barber),
+    normalizeBookingValue(record.date),
+    normalizeBookingValue(record.time),
+    normalizeBookingValue(record.notes),
+  ].join('|');
+}
+
+function dedupeBookings(bookings: BookingRecord[]) {
+  const seen = new Set<string>();
+  const deduped: BookingRecord[] = [];
+
+  for (const booking of bookings) {
+    const signature = bookingSignature(booking);
+    if (seen.has(signature)) {
+      continue;
+    }
+
+    seen.add(signature);
+    deduped.push(booking);
+  }
+
+  return deduped;
 }
 
 function getServiceDurationMinutes(serviceName: string) {
@@ -248,6 +285,11 @@ export async function createBooking(
   record: Omit<BookingRecord, 'id' | 'createdAt' | 'status' | 'barberLabel'>,
 ) {
   const store = await loadStore();
+  const existingBooking = store.bookings.find((booking) => bookingSignature(booking) === bookingSignature(record));
+  if (existingBooking) {
+    return existingBooking;
+  }
+
   if (bookingConflicts(store, record)) {
     return null;
   }

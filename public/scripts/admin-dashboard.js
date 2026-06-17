@@ -3,9 +3,44 @@ const dashboardRoot = document.querySelector('[data-admin-dashboard]');
 const dataNode = document.getElementById('admin-bookings-json');
 
 if (dashboardRoot instanceof HTMLElement && dataNode instanceof HTMLScriptElement) {
-  let bookings = JSON.parse(dataNode.textContent || '[]');
+  const storageKey = 'jsb-customer-bookings';
+  const readLocalBookings = () => {
+    try {
+      const raw = window.localStorage.getItem(storageKey);
+      const parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  };
+
+  const mergeBookings = (...groups) => {
+    const merged = new Map();
+    groups.flat().forEach((booking) => {
+      if (!booking || typeof booking !== 'object') {
+        return;
+      }
+
+      const key = [
+        String(booking.name || '').trim().toLowerCase(),
+        String(booking.phone || '').trim(),
+        String(booking.service || '').trim().toLowerCase(),
+        String(booking.barber || '').trim().toLowerCase(),
+        String(booking.date || '').trim(),
+        String(booking.time || '').trim(),
+        String(booking.notes || '').trim().toLowerCase(),
+        String(booking.status || '').trim().toLowerCase(),
+      ].join('|');
+
+      merged.set(key, booking);
+    });
+    return Array.from(merged.values()).sort((a, b) => `${a.date}T${a.time}`.localeCompare(`${b.date}T${b.time}`));
+  };
+
+  let bookings = mergeBookings(JSON.parse(dataNode.textContent || '[]'), readLocalBookings());
   const agendaTitle = dashboardRoot.querySelector('[data-agenda-title]');
   const agendaCount = dashboardRoot.querySelector('[data-agenda-count]');
+  const adminTotal = dashboardRoot.querySelector('[data-admin-total]');
   const agendaDetails = dashboardRoot.querySelector('[data-agenda-details]');
   const agendaList = dashboardRoot.querySelector('[data-agenda-list]');
   const dayButtons = Array.from(dashboardRoot.querySelectorAll('[data-admin-date]'));
@@ -39,6 +74,11 @@ if (dashboardRoot instanceof HTMLElement && dataNode instanceof HTMLScriptElemen
 
   const syncCalendarCounts = () => {
     const countsByDate = getActiveBookingsByDate();
+
+    if (adminTotal instanceof HTMLElement) {
+      const activeCount = bookings.filter((booking) => booking.status !== 'Cancelada').length;
+      adminTotal.textContent = `${activeCount} ${activeCount === 1 ? 'reserva registrada' : 'reservas registradas'}`;
+    }
 
     dayButtons.forEach((button) => {
       if (!(button instanceof HTMLButtonElement)) return;
@@ -160,7 +200,7 @@ if (dashboardRoot instanceof HTMLElement && dataNode instanceof HTMLScriptElemen
         return false;
       }
 
-      bookings = payload.data.bookings;
+      bookings = mergeBookings(payload.data.bookings, readLocalBookings());
       syncCalendarCounts();
       renderAgenda();
       return true;
