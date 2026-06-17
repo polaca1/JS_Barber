@@ -98,7 +98,6 @@ if (!Astro.cookies.has(csrfCookieName)) {
             <h2 class="section-title">Encuentra el hueco que mejor te venga</h2>
             <div class="period-row" style="margin-top: 22px;">
               <button class="period-btn is-active" type="button" data-period="manana">Manana</button>
-              <button class="period-btn" type="button" data-period="mediodia">Mediodia</button>
               <button class="period-btn" type="button" data-period="tarde">Tarde</button>
             </div>
             <div class="calendar-header">
@@ -419,9 +418,8 @@ if (!Astro.cookies.has(csrfCookieName)) {
       };
 
       const periodSlots = {
-        manana: ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00'],
-        mediodia: ['13:30', '14:00', '14:30'],
-        tarde: ['16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00'],
+        manana: ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30'],
+        tarde: ['16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30'],
       };
 
       const toMinutes = (timeValue) => {
@@ -522,7 +520,6 @@ if (!Astro.cookies.has(csrfCookieName)) {
 
       const getPeriodFromTime = (value) => {
         if (periodSlots.manana.includes(value)) return 'manana';
-        if (periodSlots.mediodia.includes(value)) return 'mediodia';
         return 'tarde';
       };
 
