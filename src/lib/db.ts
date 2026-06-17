@@ -57,7 +57,11 @@ type StoreData = {
   workers: WorkerRecord[];
 };
 
-const storePath = join(process.cwd(), 'data', 'jsb-store.json');
+const repoStorePath = join(process.cwd(), 'data', 'jsb-store.json');
+const runtimePath = process.cwd().replace(/\\/g, '/');
+const isServerlessRuntime =
+  runtimePath.startsWith('/var/task') || process.env.VERCEL === '1' || Boolean(process.env.VERCEL_ENV);
+const storePath = isServerlessRuntime ? join('/tmp', 'jsb-store.json') : repoStorePath;
 
 function seedWorkers() {
   return barberProfiles.map((worker) => ({
@@ -99,7 +103,27 @@ async function loadStore() {
       bookings: bookings.filter((booking): booking is BookingRecord => Boolean(booking && booking.id)),
     };
   } catch {
-    state.__jsbStore = seedStore();
+    try {
+      const repoRaw = await readFile(repoStorePath, 'utf8');
+      const repoParsed = JSON.parse(repoRaw) as Partial<StoreData>;
+      const workers =
+        Array.isArray(repoParsed.workers) && repoParsed.workers.length > 0
+          ? repoParsed.workers
+          : seedWorkers();
+      const bookings = Array.isArray(repoParsed.bookings) ? repoParsed.bookings : [];
+
+      state.__jsbStore = {
+        workers: workers.map((worker) => ({
+          ...worker,
+          role: worker.role === 'Barbero senior' ? 'Barbero' : worker.role,
+          active: worker.active !== false,
+        })),
+        bookings: bookings.filter((booking): booking is BookingRecord => Boolean(booking && booking.id)),
+      };
+    } catch {
+      state.__jsbStore = seedStore();
+    }
+
     await persistStore();
   }
 
