@@ -45,30 +45,5 @@ const links = [
     </div>
   </div>
 
-  <script is:inline>
-    // @ts-nocheck
-    (() => {
-      const nav = document.currentScript?.closest('.topnav');
-      const toggle = nav?.querySelector('[data-menu-toggle]');
-      const menu = nav?.querySelector('[data-mobile-menu]');
-      if (!(nav instanceof HTMLElement) || !(toggle instanceof HTMLButtonElement) || !(menu instanceof HTMLElement)) {
-        return;
-      }
-
-      const closeMenu = () => {
-        nav.dataset.menuOpen = 'false';
-        toggle.setAttribute('aria-expanded', 'false');
-      };
-
-      toggle.addEventListener('click', () => {
-        const nextState = nav.dataset.menuOpen === 'true' ? 'false' : 'true';
-        nav.dataset.menuOpen = nextState;
-        toggle.setAttribute('aria-expanded', nextState);
-      });
-
-      menu.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', closeMenu);
-      });
-    })();
-  </script>
+  <script is:inline src="/scripts/public-nav.js"></script>
 </nav>

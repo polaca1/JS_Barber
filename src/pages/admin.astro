@@ -46,7 +46,7 @@ const loginError = Astro.url.searchParams.get('error') === '1';
             </p>
           )}
 
-          <form id="admin-login-form" style="margin-top: 24px; display: grid; gap: 16px;">
+          <form id="admin-login-form" action="/api/admin/login" method="post" style="margin-top: 24px; display: grid; gap: 16px;">
             <input type="hidden" name="csrfToken" value={csrfToken} />
             <label class="field-label">
               Contrasena
@@ -60,22 +60,6 @@ const loginError = Astro.url.searchParams.get('error') === '1';
             <a class="btn btn-secondary" href="/reservas">Ir a reservas</a>
           </div>
         </section>
-
-        <script>
-          const loginForm = document.getElementById('admin-login-form');
-          if (loginForm instanceof HTMLFormElement) {
-            loginForm.addEventListener('submit', async (event) => {
-              event.preventDefault();
-              const payload = Object.fromEntries(new FormData(loginForm).entries());
-              const response = await fetch('/api/admin/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
-              });
-              window.location.href = response.ok ? '/admin' : '/admin?error=1';
-            });
-          }
-        </script>
       </main>
     )
   }
