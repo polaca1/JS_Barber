@@ -2,7 +2,7 @@
 import Layout from '@components/Layout.astro';
 import FloatingWhatsApp from '@components/FloatingWhatsApp.astro';
 import PublicNav from '@components/PublicNav.astro';
-import { brandBanner, galleryImages, heroImages, services, site } from '@lib/site';
+import { galleryImages, heroImages, services, site } from '@lib/site';
 ---
 
 <Layout
@@ -16,7 +16,6 @@ import { brandBanner, galleryImages, heroImages, services, site } from '@lib/sit
       <div class="landing-hero-media">
         <img src={heroImages[0].src} alt={heroImages[0].alt} />
       </div>
-      <img class="landing-logo-blur" src={brandBanner} alt="" aria-hidden="true" />
       <div class="shell landing-hero-content">
         <p class="eyebrow">Barberia en Badajoz</p>
         <h1 class="display">El arte del corte real</h1>
