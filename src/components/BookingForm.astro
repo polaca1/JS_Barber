@@ -228,6 +228,8 @@ if (!Astro.cookies.has(csrfCookieName)) {
         return;
       }
 
+      const isDomElement = (value) => Boolean(value && typeof value === 'object' && value.nodeType === 1);
+
       const todayIso = app.dataset.todayIso || '';
       const steps = Array.from(app.querySelectorAll('[data-step]'));
       const indicators = Array.from(app.querySelectorAll('[data-step-indicator]'));
@@ -976,4 +978,3 @@ if (!Astro.cookies.has(csrfCookieName)) {
     })();
   </script>
 </section>
-      const isDomElement = (value) => Boolean(value && typeof value === 'object' && value.nodeType === 1);
