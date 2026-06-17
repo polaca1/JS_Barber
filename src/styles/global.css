@@ -1112,6 +1112,14 @@ textarea.field {
   cursor: pointer;
 }
 
+.admin-calendar-day-inner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}
+
 .admin-calendar-day:hover,
 .admin-calendar-day.is-selected {
   background: rgba(255, 255, 255, 0.04);
@@ -1132,6 +1140,8 @@ textarea.field {
   font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
+  line-height: 1.1;
+  text-align: left;
 }
 
 .agenda-panel {
@@ -1648,6 +1658,11 @@ textarea.field {
     align-items: flex-start;
   }
 
+  .calendar-month-title {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .calendar-weekdays,
   .calendar-grid {
     gap: 8px;
@@ -1655,6 +1670,20 @@ textarea.field {
 
   .calendar-day {
     font-size: 0.9rem;
+  }
+
+  .admin-calendar-day {
+    min-height: 102px;
+    padding: 8px;
+  }
+
+  .admin-calendar-day-inner {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .admin-calendar-count {
+    font-size: 0.62rem;
   }
 
   .story-badge {
@@ -1758,6 +1787,20 @@ textarea.field {
 
   .calendar-day {
     font-size: 0.82rem;
+  }
+
+  .admin-calendar-day {
+    min-height: 88px;
+    padding: 7px;
+  }
+
+  .admin-calendar-day strong {
+    font-size: 0.94rem;
+  }
+
+  .admin-calendar-count {
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
   }
 
   .calendar-day::after {

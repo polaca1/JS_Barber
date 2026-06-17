@@ -85,7 +85,7 @@ const initialAgendaDate = todayIso;
               data-admin-date={cell.date ?? ''}
             >
               {cell.date ? (
-                <div style="display: flex; justify-content: space-between; gap: 8px;">
+                <div class="admin-calendar-day-inner">
                   <strong>{cell.day}</strong>
                   {cell.count > 0 && <span class="admin-calendar-count">{cell.count} citas</span>}
                 </div>
